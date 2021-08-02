@@ -1,0 +1,23 @@
+@import "./normalize.css";
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+a:link {
+
+}
+a:visited {
+
+}
+a:active {
+}
+a:hover {
+
+}
+ul li{
+  list-style:none;
+}
