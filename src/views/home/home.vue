@@ -5,20 +5,23 @@
       <div slot="ct"><strong>购物街</strong></div>
       <div slot="rt"></div>
     </navBar>
-    <homeCarousel></homeCarousel>
+    <homeCarousel :banner="banner"></homeCarousel>
+    <homeRecond :recommend="recommend"></homeRecond>
   </div>
 </template>
 
 <script>
 import navBar from "@/components/common/navBar/navBar";
+import homeCarousel from '@/views/home/children/homeCarousel'
+import homeRecond from '@/views/home/children/homeRecond'
 import {homenw} from '@/network/homenw';
-import homeCarousel from '@/views/home/swiper/homeCarousel'
 
 export default {
   name: "home",
   components: {
     navBar,
-    homeCarousel
+    homeCarousel,
+    homeRecond
   },
   data() {
     return {
@@ -31,6 +34,7 @@ export default {
       res => {
         this.banner = res.data.banner.list
         this.recommend = res.data.recommend.list
+        console.log(res)
       }
     ).catch()
   }
