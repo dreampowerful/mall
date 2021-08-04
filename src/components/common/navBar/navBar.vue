@@ -23,7 +23,10 @@ export default {
   width: 100%;
   display: flex;
   height: 40px;
-  box-shadow: 0 2px 2px #efefef;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
 }
 
 .nav .lt {

@@ -7,6 +7,95 @@
     </navBar>
     <homeCarousel :banner="banner"></homeCarousel>
     <homeRecond :recommend="recommend"></homeRecond>
+    <FeatureView></FeatureView>
+    <tabControl :title="['流行','新款','精选']"></tabControl>
+    <ul>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+      <li>ad</li>
+    </ul>
   </div>
 </template>
 
@@ -14,6 +103,8 @@
 import navBar from "@/components/common/navBar/navBar";
 import homeCarousel from '@/views/home/children/homeCarousel'
 import homeRecond from '@/views/home/children/homeRecond'
+import FeatureView from './children/FeatureView'
+import tabControl from '@/components/content/tabControl/tabControl'
 import {homenw} from '@/network/homenw';
 
 export default {
@@ -21,7 +112,9 @@ export default {
   components: {
     navBar,
     homeCarousel,
-    homeRecond
+    homeRecond,
+    FeatureView,
+    tabControl
   },
   data() {
     return {

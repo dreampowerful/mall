@@ -32,6 +32,7 @@ export default {
 .swiper-container {
   width: 100%;
   overflow: hidden;
+  margin-top:40px ;
 }
 
 .swiper-container img {

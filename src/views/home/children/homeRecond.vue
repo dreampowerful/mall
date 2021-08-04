@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="hr">
     <ul>
       <li v-for="(items,indexkeyh) in recommend" :key="indexkeyh">
-        <a :href="items.link"><img :src="items.image" :alt="items.title">{{items.title}}</a>
+        <a :href="items.link"><img :src="items.image" :alt="items.title">{{ items.title }}</a>
       </li>
     </ul>
   </div>
@@ -23,17 +23,28 @@ export default {
 </script>
 
 <style scoped>
+.hr {
+  width: 100%;
+  overflow: hidden;
+}
+
 ul {
   width: 100%;
   display: flex;
   overflow: hidden;
+  padding: 0;
+  text-align: center;
+  line-height: 35px;
+  font-size: 14px;
 }
-ul li {
-  flex:1;
-}
-ul li img{
-  width: 70px;
-  display: block;
 
+ul li {
+  flex: 1;
+}
+
+ul li img {
+  width: 75%;
+  display: block;
+  margin: 0 auto;
 }
 </style>
