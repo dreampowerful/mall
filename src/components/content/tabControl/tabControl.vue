@@ -21,13 +21,14 @@ export default {
     }
   },
   data() {
-  return {
-    curryIndex:0
-  }
+    return {
+      curryIndex: 0
+    }
   },
   methods: {
     clickMy(titleKey) {
       this.curryIndex = titleKey
+      this.$emit('tabClick',  this.curryIndex)
     }
   }
 }
@@ -39,13 +40,13 @@ export default {
   top: 40px;
   left: 0;
   z-index: 999;
-  background: #dee1e6;
+  background: #f1f8ff;
 }
 
 .scroll ul {
   width: 100%;
   height: 40px;
-  line-height:40px ;
+  line-height: 40px;
   display: flex;
   text-align: center;
 }
