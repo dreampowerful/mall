@@ -1,17 +1,23 @@
 <template>
-  <div>
+  <div class="wrapper">
     <navBar class="home-bar">
       <div slot="lt"></div>
       <div slot="ct"><strong>购物街</strong></div>
       <div slot="rt"></div>
     </navBar>
-    <homeCarousel :banner="banner"></homeCarousel>
-    <homeRecond :recommend="recommend"></homeRecond>
-    <FeatureView></FeatureView>
-    <tabControl :title="['流行','新款','精选']" @tabClick="goodSwitch"></tabControl>
-    <betterScroll>
+    <betterScroll ref="backTopp"
+                  class="content"
+                  :probeType="3"
+                  @scrollson="scrollfath"
+                  :pull-up-load="true"
+                  @pullingUp="loadMore">
+      <homeCarousel :banner="banner"></homeCarousel>
+      <homeRecond :recommend="recommend"></homeRecond>
+      <FeatureView></FeatureView>
+      <tabControl :title="['流行','新款','精选']" @tabClick="goodSwitch"></tabControl>
       <goodList :produList="goods[tabClickString].list"></goodList>
     </betterScroll>
+    <backTop @click.native="goTop()" ref="goTop" v-show="isshow"></backTop>
   </div>
 </template>
 
@@ -24,6 +30,7 @@ import tabControl from '@/components/content/tabControl/tabControl'
 import {homenw, gethomeGoods} from '@/network/homenw';
 import goodList from '@/components/content/goods/goodList'
 import betterScroll from "@/components/content/BScroll/betterScroll";
+import backTop from "@/components/content/backTop/backTop";
 
 export default {
   name: "home",
@@ -34,7 +41,8 @@ export default {
     FeatureView,
     tabControl,
     goodList,
-    betterScroll
+    betterScroll,
+    backTop
   },
   data() {
     return {
@@ -45,7 +53,8 @@ export default {
         'new': {page: 0, list: []},
         'sell': {page: 0, list: []},
       },
-      tabClickString: 'pop'
+      tabClickString: 'pop',
+      isshow: false
     }
   },
   created() {
@@ -54,6 +63,13 @@ export default {
     this.gethomeGds('new')
     this.gethomeGds('sell')
   },
+  mounted() {
+    //在home中以$on监听imgLoads事件，imgLoads不用挂载到home中，一个新的写法
+    const refresh = this.debounce(this.$refs.backTopp.refresh)
+    this.$bus.$on('imgLoads', () => {
+      refresh()
+    })
+  },
   methods: {
     homenw() {
       homenw().then(
@@ -61,18 +77,17 @@ export default {
           this.banner = res.data.banner.list
           this.recommend = res.data.recommend.list
         }
-      ).catch()
+      )
     },
     gethomeGds(type) {
-      let page = this.page + 1
-      gethomeGoods(type, page).then(
-        res => {
+      let page = this.goods[type].page + 1
+      gethomeGoods(type, page).then(res => {
           this.goods[type].list.push(...res.data.list)
+          this.goods[type].page += 1
+
+          this.$refs.backTopp.finishPullUp()
         }
-      ).catch(
-        error => {
-          alert('活动繁忙')
-        })
+      )
     },
     goodSwitch(titleKey) {
       switch (titleKey) {
@@ -86,7 +101,36 @@ export default {
           this.tabClickString = 'sell'
           break
       }
-    }
+    },
+    goTop() {
+      this.$refs.backTopp.backTop(0, 100, 500)
+    },
+    scrollfath(position) {
+      if (-position.y > 500) {
+        this.isshow = true
+      } else {
+        this.isshow = false
+      }
+    },
+    loadMore() {
+      this.gethomeGds(this.tabClickString)
+    },
+    debounce(func, delay) {
+      let timer = null
+      return function (...args) {
+        if (timer) clearTimeout(timer)
+        timer = setTimeout(() => {
+          func.apply(this, args)
+        }, 200)
+      }
+    },
+  },
+  //activated deactivated记录活跃页面的滚动条位置，没做
+  activated() {
+
+  },
+  deactivated() {
+
   }
 
 }
@@ -95,9 +139,19 @@ export default {
 .home-bar {
   background: #ff8198;
 }
-.wrapper{
-width: 100%;
-  height:80vh;
+
+.wrapper {
+  width: 100%;
+  height: 93vh;
   overflow: hidden;
+  position: relative;
+}
+
+.wrapper .content {
+  overflow: hidden;
+
+  position: absolute;
+  top: 40px;
+  left: 0;
 }
 </style>

@@ -3,7 +3,7 @@
     <ul>
       <li @click="clickMy(titleKey)" :class="{isActive:titleKey==curryIndex}" v-for="(item,titleKey) in title"
           :key="titleKey">
-        <span>{{ item }}</span>
+        <span>{{item}}</span>
       </li>
     </ul>
   </div>

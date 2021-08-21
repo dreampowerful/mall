@@ -5,13 +5,14 @@ const home = () => import('@/views/home/home')
 const profile = () => import('@/views/profile/profile')
 const shopCat = () => import('@/views/shopCat/shopCat')
 const category = () => import('@/views/category/category')
+const detail = () => import('@/views/detail/detail')
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '',
-    redirect:'/home'
+    redirect: '/home'
   },
   {
     path: '/home',
@@ -33,6 +34,13 @@ const routes = [
     name: 'category',
     component: category
   },
+  //:iid  动态路由
+  {
+    path: '/detail/:iid',
+    name: 'detail',
+    component: detail
+  },
+
 ]
 const router = new VueRouter({
   routes,
