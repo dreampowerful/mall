@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Object.keys(goods).length !== 0" class="base-info">
+  <div v-if="Object.keys(goods).length !== 0" class="base-info" ref="detailbase">
     <div class="info-title">{{ goods.title }}</div>
     <div class="info-price">
       <span class="n-price">{{ goods.newPrice }}</span>
@@ -29,9 +29,21 @@ export default {
       default() {
         return {}
       }
+    },
+  },
+  data() {
+    return {
+      baseHeight: 0
+    }
+  },
+  mounted() {
+    if (this.baseHeight) {
+      this.baseHeight = this.$refs.detailbase.offsetHeight
+      console.log(this.baseHeight)
     }
   }
 }
+
 </script>
 
 <style scoped>

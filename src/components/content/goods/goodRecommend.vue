@@ -1,21 +1,21 @@
 <template>
   <div class="goods_items" @click="goodClick">
     <div class="phtos">
-      <img v-if="goodItemList.show" :src="goodItemList.show.img" alt="" @load="imgLoad">
+      <img v-if="goodRecommend.image" :src="goodRecommend.image" alt="" @load="imgLoad">
     </div>
     <div class="goods_mesPri">
-      <p class="title">{{ goodItemList.title }}</p>
-      <span class="price">{{ '￥' + goodItemList.price }}</span>
-      <span class="message">{{ goodItemList.cfav }}</span>
+      <p class="title">{{ goodRecommend.title }}</p>
+      <span class="price">{{ '￥' + goodRecommend.price }}</span>
+      <span class="message">{{ goodRecommend.cfav }}</span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "goodItem",
+  name: "goodRecommend",
   props: {
-    goodItemList: {
+    goodRecommend: {
       type: Object,
       default() {
         return {}
@@ -27,7 +27,7 @@ export default {
       this.$bus.$emit('imgLoads')
     },
     goodClick() {
-      this.$router.push('/detail/' + this.goodItemList.iid)
+      this.$router.push('/detail/' + this.goodRecommend.iid)
       // console.log(this.goodItemList)
     }
   }

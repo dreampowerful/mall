@@ -1,12 +1,20 @@
 //详情页面的网络请求
 import {requestd} from '@/network/requestd'
 
+//获取点击指定的详情页
 export function detailNetwork(iid) {
   return requestd({
     url: '/detail/',
     params: {
       iid
     }
+  })
+}
+
+//获取详情页的推荐信息
+export function recommended() {
+  return requestd({
+    url: '/recommend/'
   })
 }
 
@@ -35,5 +43,14 @@ export class Shop {
     this.sells = shopInfo.cSells;
     this.score = shopInfo.score;
     this.goodsCount = shopInfo.cGoods
+  }
+}
+
+export class GoodsParam {
+  constructor(info, rule) {
+    // 注: images可能没有值(某些商品有值, 某些没有值)
+    this.image = info.images ? info.images[0] : '';
+    this.infos = info.set;
+    this.sizes = rule.tables;
   }
 }

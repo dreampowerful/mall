@@ -1,17 +1,20 @@
 <template>
   <div class="goods">
-    <goodItem :goodItemList="goods" v-for="(goods,goodKey) in produList" :key="goodKey"></goodItem>
+    <goodItem v-if="goods.show" :goodItemList="goods"  v-for="(goods,goodKey) in produList" :key="goodKey"></goodItem>
+    <goodRecommend v-if="goods.image" :goodRecommend="goods" v-for="(goods,recommendKey) in produList" :key="recommendKey"></goodRecommend>
     <div class="line"></div>
   </div>
 </template>
 
 <script>
 import goodItem from "@/components/content/goods/goodItem";
+import goodRecommend from "@/components/content/goods/goodRecommend";
 
 export default {
   name: "goodList",
   components: {
-    goodItem
+    goodItem,
+    goodRecommend
   },
   props: {
     produList: {
@@ -26,13 +29,14 @@ export default {
 </script>
 
 <style scoped>
-.goods{
+.goods {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.line{
+
+.line {
   width: 100%;
   height: 49px;
 }

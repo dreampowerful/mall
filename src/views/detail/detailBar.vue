@@ -20,6 +20,9 @@ export default {
   methods: {
     switClick(titKey) {
       this.currentIndex = titKey
+      if (this.currentIndex == 1) {
+        this.$emit('goParms')
+      }
     },
     goback() {
       this.$router.go(-1)

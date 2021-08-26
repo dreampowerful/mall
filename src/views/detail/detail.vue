@@ -1,23 +1,29 @@
 <template>
   <div class="wrapper" id="detailBar">
-    <detailBar class="detailBar_nav"></detailBar>
+    <detailBar class="detailBar_nav" @goParms="goParmsf" id="parns"></detailBar>
     <betterScroll class="content" ref="backTopp">
       <detailTopImage :detail-top-image="topImages"></detailTopImage>
       <DetailBaseInfo :goods="goods"></DetailBaseInfo>
       <DetailShopInfo :shop="Shop"></DetailShopInfo>
       <DetailGoodsInfo :detail-info="detailInfo" @imgLoads="imgLoadfs"></DetailGoodsInfo>
+      <DetailParamInfo :paramInfo="GoodsParam"></DetailParamInfo>
+      <DetailCommentInfo :commentinfo="comments"></DetailCommentInfo>
+      <goodsList :produList="recommended" :recommend="recommended"></goodsList>
     </betterScroll>
   </div>
 </template>
 
 <script>
 import detailBar from "@/views/detail/detailBar";
-import {detailNetwork, goodInfo, Shop} from "@/network/detail";
+import {detailNetwork, goodInfo, Shop, GoodsParam, recommended} from "@/network/detail";
 import detailTopImage from "@/views/detail/detailTopImage";
 import DetailBaseInfo from "@/views/detail/DetailBaseInfo";
 import DetailShopInfo from "@/views/detail/DetailShopInfo";
+import DetailParamInfo from "@/views/detail/DetailParamInfo";
 import DetailGoodsInfo from "@/views/detail/DetailGoodsInfo";
+import DetailCommentInfo from "@/views/detail/DetailCommentInfo";
 import betterScroll from "@/components/content/BScroll/betterScroll";
+import goodsList from "@/components/content/goods/goodList";
 
 export default {
   name: "detail",
@@ -27,7 +33,10 @@ export default {
       topImages: [],
       goods: {},
       Shop: {},
-      detailInfo: {}
+      detailInfo: {},
+      GoodsParam: {},
+      comments: {},
+      recommended:[]
     }
   },
   components: {
@@ -36,7 +45,10 @@ export default {
     DetailBaseInfo,
     DetailShopInfo,
     betterScroll,
-    DetailGoodsInfo
+    DetailGoodsInfo,
+    DetailParamInfo,
+    DetailCommentInfo,
+    goodsList
   },
   //获取商品数据
   created() {
@@ -51,13 +63,31 @@ export default {
       this.Shop = new Shop(data.shopInfo)
       //
       this.detailInfo = data.detailInfo
+      // 5.获取参数的信息
+      this.GoodsParam = new GoodsParam(data.itemParams.info, data.itemParams.rule)
+      //  获取评论信息
+      //判断是否有评论
+      if (data.rate.cRate !== 0) {
+        this.comments = data.rate.list[0]
+      }
     }).catch()
+    //  获取详情页面的推荐信息
+    recommended().then(res => {
+        // console.log(res)
+        this.recommended = res.data.list
+        console.log(this.recommended)
+      }
+    ).catch()
   },
   methods: {
     imgLoadfs() {
       this.$refs.backTopp.refresh()
+    },
+    goParmsf() {
+      window.location.hash = '#parns'
     }
-  }
+  },
+
 }
 </script>
 
